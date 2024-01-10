@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_freesplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2024/01/10 15:17:47 by jblaye            #+#    #+#             */
+/*   Updated: 2024/01/10 18:53:56 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_freesplit(char **tab)
 {
-	void	*ptr;
-
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	int	i;
+	
+	i = 0;
+	while (tab[i] != 0)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

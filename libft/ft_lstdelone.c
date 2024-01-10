@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2023/11/09 15:39:05 by jblaye            #+#    #+#             */
+/*   Updated: 2023/11/09 17:04:22 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	void	*ptr;
-
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	if (!del)
+		return ;
+	del(lst->content);
+	free(lst);
 }

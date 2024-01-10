@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2023/11/07 16:22:46 by jblaye            #+#    #+#             */
+/*   Updated: 2023/11/10 18:21:30 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	void	*ptr;
+	size_t	lens1;
+	size_t	lens2;
+	char	*r;
 
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
+	if (!s1 || !s2)
 		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	lens1 = ft_strlen(s1);
+	lens2 = ft_strlen(s2);
+	r = (char *) malloc((lens1 + lens2 + 1) * sizeof(char));
+	if (!r)
+		return (0);
+	while (*s1 != 0)
+	{
+		*r = *s1;
+		r++;
+		s1++;
+	}
+	while (*s2 != 0)
+	{
+		*r = *s2;
+		r++;
+		s2++;
+	}
+	*r = '\0';
+	return (r - lens1 - lens2);
 }

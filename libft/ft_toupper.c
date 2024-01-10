@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2023/11/06 14:09:04 by jblaye            #+#    #+#             */
+/*   Updated: 2023/11/06 15:02:19 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_toupper(int c)
 {
-	void	*ptr;
-
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	if (c >= 'a' && c <= 'z')
+		return (c - 'a' + 'A');
+	else
+		return (c);
 }

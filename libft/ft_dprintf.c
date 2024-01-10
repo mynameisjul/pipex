@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_dprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2024/01/10 19:00:36 by jblaye            #+#    #+#             */
+/*   Updated: 2024/01/10 19:07:38 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_dprintf(int fd, const char *str, ...)
 {
-	void	*ptr;
+	va_list	ap;
+	int		i;
+	int		nbc;
 
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	if (!str)
+		return (-1);
+	va_start(ap, str);
+	i = 0;
+	nbc = 0;
+	while (str[i])
+	{
+		if (str[i] == '%')
+		{
+			nbc = nbc + print_type(str[i + 1], ap);
+			i++;
+		}
+		else
+		{
+			write(fd, &str[i], 1);
+			nbc++;
+		}
+		i++;
+	}
+	return (nbc);
 }

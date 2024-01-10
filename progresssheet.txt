@@ -1,0 +1,12 @@
+
+
+2024.01.10
+
+Objectif generer progr qui gere un simple pipe
+A priori main fonctionnel
+Probleme sur la recherche du path => 
+il faut tester toutes les str de "paths" et 
+checker que chaque strnjoin de path[i]+ la commande existent avec access
+cf fichier utils
+attention zero gestion d'erreur
+___________________________________

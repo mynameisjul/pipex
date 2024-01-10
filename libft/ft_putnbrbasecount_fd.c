@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putnbrbasecount_fd.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2023/11/23 11:06:41 by jblaye            #+#    #+#             */
+/*   Updated: 2024/01/10 17:46:58 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_putnbrbasecount_fd(int *count, unsigned int nbr, int fd)
 {
-	void	*ptr;
+	char	*base;
 
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	base = "0123456789abcdef";
+	if (nbr >= 16)
+	{
+		ft_putnbrbasecount_fd(count, nbr / 16, fd);
+		ft_putcharcount_fd(count, base[nbr % 16], fd);
+	}
+	else
+	{
+		ft_putcharcount_fd(count, base[nbr], fd);
+	}
 }

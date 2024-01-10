@@ -6,11 +6,11 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:26:50 by jblaye            #+#    #+#             */
-/*   Updated: 2023/12/21 15:17:50 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/10 18:43:19 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
 size_t	wordlen(char const *s, char c)
 {

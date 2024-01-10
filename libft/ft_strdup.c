@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2023/11/07 15:09:19 by jblaye            #+#    #+#             */
+/*   Updated: 2023/11/10 16:56:55 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strdup(const char *s)
 {
-	void	*ptr;
+	char	*r;
+	size_t	lens;
 
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
+	lens = ft_strlen(s);
+	r = (char *) malloc (sizeof(char) * (lens + 1));
+	if (!r)
 		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	while (*s != 0)
+	{
+		*r = *s;
+		r++;
+		s++;
+	}
+	*r = 0;
+	return (r - lens);
 }

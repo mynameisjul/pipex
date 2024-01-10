@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:54:49 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:41 by jblaye           ###   ########.fr       */
+/*   Created: 2023/11/06 12:14:35 by jblaye            #+#    #+#             */
+/*   Updated: 2023/11/09 10:57:23 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_atoi(const char *nptr)
 {
-	void	*ptr;
+	int	n;
+	int	i;
+	int	sign;
 
-	if (size && nmemb * size / size != nmemb)
-		return (NULL);
-	ptr = (void *) malloc(nmemb * size);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	i = 0;
+	n = 0;
+	sign = 1;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '-')
+		sign = -sign;
+	if (nptr[i] == '-' || nptr[i] == '+')
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		n = n * 10 + nptr[i] - '0';
+		i++;
+	}
+	return (n * sign);
 }

@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: julieblaye <julieblaye@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/10 17:27:56 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/11 12:43:55 by julieblaye       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char **paths_tab(char **ev)
+/* Paths tab recupere dans les parametres d'env celui commencant par PATH 
+et separe dans un tableau de str tous les paths possibles avec le separateur : 
+Renvoie le tableau de str et free la str temporaire */
+
+char **pathstab(char **ev)
 {
 	int		i;
 	int		j;
@@ -25,7 +29,7 @@ char **paths_tab(char **ev)
 	j = 0;
 	while (ev[i][j + 5] != ':' && ev[i][j + 5] != 0)
 		j++;
-	path = (char *) ft_calloc(j, sizeof(char));
+	path = (char *) ft_calloc(j + 1, sizeof(char));
 	if (!path)
 		return (NULL);
 	j = 0;
@@ -34,26 +38,34 @@ char **paths_tab(char **ev)
 		path[j] = ev[i][j + 5];
 		j++;
 	}
-	paths = ft_split(path, ":");
+	paths = ft_split(path, ':');
 	return (free(path), paths);
 }
 
-int	path_index(char *cmd, char **ev)
+/* cmdpath parcours le tableau de chemins potentiels pour la commande cmd
+et renvoie la str qui correspond au bon chemin, null sinon */
+
+char	*cmdpath(char *cmd, char **ev)
 {
 	int		i;
 	char	**paths;
+	char	*cmd_name;
 	char	*cmd_path;
 
 	i = 0;
-	paths = paths_tab(ev);
+	paths = pathstab(ev);
+	if (!paths)
+		return (NULL);
+	cmd_name = ft_strjoin("/", cmd);
+	if (!cmd_name)
+		return (NULL);
 	while (paths[i] != 0)
 	{
-		cmd_path = ft_strjoin(paths[i], cmd);
+		cmd_path = ft_strjoin(paths[i], cmd_name);
 		if (!cmd_path)
-			return (-1);
+			return (free(cmd_name), ft_freesplit(paths), NULL);
 		if(access(cmd_path, F_OK | X_OK) == 0)
-			return (i);
-		free(cmd_path);		
+			return (ft_freesplit(paths), free(cmd_name), cmd_path);
 	}
-	return (-1);
+	return (free(cmd_name), ft_freesplit(paths), NULL);
 }

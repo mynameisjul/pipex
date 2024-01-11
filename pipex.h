@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: julieblaye <julieblaye@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:01 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/10 17:28:02 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/11 16:56:18 by julieblaye       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 
 //ALLOC FUNCTIONS
 void	*ft_memset(void *s, int c, size_t n);
@@ -30,7 +31,7 @@ char	**ft_split(char const *s, char c);
 void	ft_freesplit(char **tab);
 
 //UTILS FUNCTIONS
-char	**paths_tab(char **ev);
-int		path_index(char *cmd, char **paths);
+char	**pathstab(char **ev);
+char	*cmdpath(char *cmd, char **paths);
 
 #endif

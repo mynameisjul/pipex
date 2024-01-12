@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:18:14 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/12 15:53:13 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/12 17:14:23 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exec_multipipe(int ac, char **av, char **ev)
 {
 	int	fds[2];
 	int	i;
+	int	status;
 
 	i = 2;
 	if (ac < 5)
@@ -44,17 +45,13 @@ void	exec_multipipe(int ac, char **av, char **ev)
 	pipe(fds);
 	while (i < ac)
 	{
-		exec_child(av[i], fds, ev);
+		if (i = 2)
+			exec_child(av[i], fds, ev);
 	}
-	
+	waitpid(pid, &status, 0);	
 }
 
 int	main(int ac, char **av, char **ev)
 {
-	int		status;
-	int		fd[2];
-	int		fd_io[2];
-
-	
-	waitpid(pid, &status, 0);
+	return (0);
 }

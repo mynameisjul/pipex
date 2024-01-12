@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:48:49 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/10 19:02:01 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:26:13 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	ft_putuicount_fd(int *count, unsigned int n, int fd);
 void	ft_putptrcount_fd(int *count, unsigned long int nbr, int fd);
 int		print_type(char c, va_list ap);
 int		ft_printf(const char *str, ...);
+void	ft_printinttab(int **tab, int len);
+void	ft_printstrtab(char **tab);
 
 typedef struct s_list
 {

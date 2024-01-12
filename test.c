@@ -1,11 +1,11 @@
+#include "pipex.h"
 #include <stdio.h>
 
-int main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **ev)
 {
-	int i = 0;
-	while (i < 50)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
+	
+	int fdio[2];
+	process_fdio(&fdio[0], &fdio[1], ac, av);
+	ft_printf("%d\n%d\n", fdio[0], fdio[1]);
+	return (0);
 }

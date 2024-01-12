@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julieblaye <julieblaye@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:01 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/11 16:56:18 by julieblaye       ###   ########.fr       */
+/*   Updated: 2024/01/12 15:39:26 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <fcntl.h>
+# include "libft/libft.h"
 
 //ALLOC FUNCTIONS
 void	*ft_memset(void *s, int c, size_t n);
@@ -33,5 +35,11 @@ void	ft_freesplit(char **tab);
 //UTILS FUNCTIONS
 char	**pathstab(char **ev);
 char	*cmdpath(char *cmd, char **paths);
+
+//PIPEX FUNCTIONS
+void	process_fdio(int *in, int *out, int ac, char **av);
+void	exec_child(char *full_cmd, int fds[2], char **ev);
+void	exec_multipipe(int ac, char **av, char **ev);
+
 
 #endif

@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freesplit.c                                     :+:      :+:    :+:   */
+/*   ft_printtab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 15:17:47 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/12 10:13:43 by jblaye           ###   ########.fr       */
+/*   Created: 2024/01/12 10:09:56 by jblaye            #+#    #+#             */
+/*   Updated: 2024/01/12 15:26:46 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_freesplit(char **tab)
+void	ft_printinttab(int **tab, int len)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i] != 0)
+	if (!tab)
+		return ;
+	while (len > 0)
 	{
-		free(tab[i]);
-		i++;
+		ft_printf("%d\n", *tab);
+		len--;
+		tab++;
 	}
-	free(tab);
+}
+
+void	ft_printstrtab(char **tab)
+{
+	if (!tab)
+		return ;
+	while (*tab != 0)
+	{
+		ft_printf("%s\n", *tab);
+		tab++;
+	}
 }

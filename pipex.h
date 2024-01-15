@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:01 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/12 17:03:54 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/15 11:19:26 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-
-typedef struct	s_childfd 
-{
-	int	fds[2];
-	int	fdio[2];
-	int	pos;	// if pos = 0 use infile =, if pos = 1 use outfile, else use pipes fds
-}				t_childfd;
 
 //ALLOC FUNCTIONS
 void	*ft_memset(void *s, int c, size_t n);
@@ -42,11 +35,12 @@ void	ft_freesplit(char **tab);
 //UTILS FUNCTIONS
 char	**pathstab(char **ev);
 char	*cmdpath(char *cmd, char **paths);
+void	init_tab(int *tab[], int len, int val);
 
 //PIPEX FUNCTIONS
 void	process_fdio(int *in, int *out, int ac, char **av);
-void	exec_child(char *full_cmd, int read, int write, char **ev);
-void	exec_multipipe(int ac, char **av, char **ev);
+int		exec_child(char *full_cmd, int fds[4], char **ev);
+void	exec_multipipe(int ac, char **av, char **ev, int fdio[2]);
 
 
 #endif

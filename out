@@ -1,0 +1,13 @@
+infile.txt
+libft
+main.c
+main.o
+Makefile
+out
+outfile.txt
+pipex
+pipex.h
+progresssheet.txt
+test.c
+utils.c
+utils.o

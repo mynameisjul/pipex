@@ -1,6 +1,12 @@
-2024.01.12
+2024.01.15
 
-
+Gestion multipipe:
+-> pour chaque process un tableau de 4 int tq
+[ read end, write end precedent, read end suivant, write end]
+Initialisation pr premier fichier:
+[ fd infile, -1, fd0[0] pipe, fd0[1] pipe]
+A chaque boucle on decale :
+[fd0[0], fd0[1], fd1[]]
 
 2024.01.10
 

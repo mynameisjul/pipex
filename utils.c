@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/12 15:55:23 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/15 10:49:39 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void	process_fdio(int *in, int *out, int ac, char **av)
 	if (*out == -1)
 		return (perror("outfile")); // gestion d erreur si le fichier nexiste pasou n a pas les droits
 	}
-	

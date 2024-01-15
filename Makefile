@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: julieblaye <julieblaye@student.42.fr>      +#+  +:+       +#+         #
+#    By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 12:13:47 by julieblaye        #+#    #+#              #
-#    Updated: 2024/01/11 12:21:13 by julieblaye       ###   ########.fr        #
+#    Updated: 2024/01/15 11:27:04 by jblaye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ libft:
 			make -C ./libft
 
 $(NAME):	$(OBJ)
-			$(CC) $(CFLAGS) -o $(NAME) $(HEADERS) $(SRCS) ./libft/libft.a
+			$(CC) $(CFLAGS) -o $(NAME) $(HEADERS) $(SRC) ./libft/libft.a
 
 clean:
 			rm -f $(OBJS)

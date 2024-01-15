@@ -6,7 +6,7 @@
 #    By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 15:37:29 by jblaye            #+#    #+#              #
-#    Updated: 2024/01/10 17:46:08 by jblaye           ###   ########.fr        #
+#    Updated: 2024/01/15 11:21:46 by jblaye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS = ft_atoi.c ft_itoa.c ft_lstsize.c ft_putendl_fd.c ft_split.c ft_strncmp.c 
 		ft_isdigit.c ft_lstmap.c ft_putcharcount_fd.c ft_putstr_fd.c ft_strlen.c \
 		ft_isprint.c ft_lstnew.c ft_putchar_fd.c ft_putuicount_fd.c ft_strmapi.c \
 		ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
-		ft_lstmap.c ft_lstnew.c ft_lstsize.c
+		ft_lstmap.c ft_lstnew.c ft_lstsize.c \
+		ft_dprintf.c ft_printtab.c
 
 HEADERS = ./libft.h
 

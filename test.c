@@ -4,8 +4,12 @@
 int main(int ac, char **av, char **ev)
 {
 	
-	int fdio[2];
-	process_fdio(&fdio[0], &fdio[1], ac, av);
-	ft_printf("%d\n%d\n", fdio[0], fdio[1]);
+	int *fds;
+	
+	fds = (int []) {0, 1, 2, 3};
+	ft_printinttab(fds, 4);
+	fds = (int []) { fds[2], fds[3], -1, -1};
+	ft_printinttab(fds, 4);
+	//free(fds);
 	return (0);
 }

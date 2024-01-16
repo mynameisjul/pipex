@@ -1,3 +1,10 @@
+2024.01.16
+
+OK CAS DE BASE
+MANQUE
+gestion ./ (a ajouter dans le path)
+gestion here doc
+
 2024.01.15
 
 Gestion multipipe:

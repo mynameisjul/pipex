@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/16 14:31:17 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:19:44 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ char	*cmdpath(char *cmd, char **ev)
 	char	*cmd_path;
 
 	i = 0;
-	paths = pathstab(ev);
+	paths = pathstab(ev);	
 	if (!paths)
 		return (NULL);
 	cmd_name = ft_strjoin("/", cmd);
 	if (!cmd_name)
-		return (ft_freesplit(paths), NULL);
+		return (ft_dprintf(2, "Command '' not found\n"),ft_freesplit(paths), NULL);
 	while (paths[i] != 0)
-	{
+	{	
 		cmd_path = ft_strjoin(paths[i], cmd_name);
 		if (!cmd_path)
 			return (free(cmd_name), ft_freesplit(paths), NULL);
@@ -59,6 +59,7 @@ char	*cmdpath(char *cmd, char **ev)
 		free(cmd_path);
 		i++;
 	}
+	ft_dprintf(2, "Command '%s' not found\n", cmd);
 	return (free(cmd_name), ft_freesplit(paths), NULL);
 }
 
@@ -76,7 +77,7 @@ void	process_fdio(int *in, int *out, int ac, char **av)
 	}
 	*out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*out == -1)
-		return (perror("outfile"));
+		return (close(*in), perror("outfile"));
 }
 
 void	close_fd(int fds[4], int fdio[2])
@@ -90,7 +91,7 @@ void	close_fd(int fds[4], int fdio[2])
 		close(fdio[1]);
 	while (fds && i < 4)
 	{
-		if (fds[i] != -1)
+		if (fds[i] != -1) 
 			close (fds[i]);
 		i++;
 	}

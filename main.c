@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:18:14 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/16 14:38:07 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:04:40 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	exec_child(char *full_cmd, int fds[4], int fdio[2], char **ev)
 			return (ft_dprintf(2, "Memory error"), -1);
 		path = cmdpath(execav[0], ev);
 		if (!path)
-			(free(execav), exit(-1));
+			(ft_freesplit(execav), exit(-1));
 		if (path != 0 && execve(path, execav, ev) < 0)
 			(perror("execve"), free(execav), free(path), exit(-1));
 	}
 	if (fds[1] != -1)
 		close (fds[1]);
-	return (close(fds[0]), close(fds[4]), pid);
+	return (close(fds[0]), close(fds[3]), pid);
 }
 
 void	exec_multipipe(int ac, char **av, char **ev, int fdio[2])

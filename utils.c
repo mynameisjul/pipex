@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/15 10:49:39 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:31:17 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**pathstab(char **ev)
 	char	**paths;
 
 	i = 0;
-	if (!ev|| !ev[0])
+	if (!ev || !ev[0])
 		return (NULL);
 	while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
 		i++;
@@ -48,7 +48,7 @@ char	*cmdpath(char *cmd, char **ev)
 		return (NULL);
 	cmd_name = ft_strjoin("/", cmd);
 	if (!cmd_name)
-		return (NULL);
+		return (ft_freesplit(paths), NULL);
 	while (paths[i] != 0)
 	{
 		cmd_path = ft_strjoin(paths[i], cmd_name);
@@ -68,8 +68,30 @@ void	process_fdio(int *in, int *out, int ac, char **av)
 {
 	*in = open(av[1], O_RDONLY, 0644);
 	if (*in == -1)
-		return (perror("infile")); // gestion d erreur si le fichier nexiste pasou n a pas les droits
+		return (perror("infile"));
+	if (ft_strncmp("here_doc", av[1], 8) == 0)
+	{
+		*out = -1;
+		return ;
+	}
 	*out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*out == -1)
-		return (perror("outfile")); // gestion d erreur si le fichier nexiste pasou n a pas les droits
+		return (perror("outfile"));
+}
+
+void	close_fd(int fds[4], int fdio[2])
+{
+	int	i;
+
+	i = 0;
+	if (fdio && fdio[0] != -1 && fdio[0] != fds[0])
+		close(fdio[0]);
+	if (fdio && fdio[1] != -1 && fdio[1] != fds[3])
+		close(fdio[1]);
+	while (fds && i < 4)
+	{
+		if (fds[i] != -1)
+			close (fds[i]);
+		i++;
 	}
+}

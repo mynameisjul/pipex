@@ -6,34 +6,38 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:18:14 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/15 11:46:14 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:38:07 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	exec_child(char *full_cmd, int fds[4], char **ev)
+int	exec_child(char *full_cmd, int fds[4], int fdio[2], char **ev)
 {
 	char	**execav;
 	char	*path;
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == -1)
-		return (perror("fork"), 1);
+		return (perror("fork"), -1);
 	if (pid == 0)
 	{
-		dup2(fds[0], STDIN_FILENO);
-		dup2(fds[3], STDOUT_FILENO);
-		(close(fds[0]), close(fds[1]), close(fds[2]), close(fds[3]));
+		if (dup2(fds[0], 0) == -1 || dup2(fds[3], 1) == -1)
+			perror("dup");
+		close_fd(fds, fdio);
 		execav = ft_split(full_cmd, ' ');
 		if (!execav)
 			return (ft_dprintf(2, "Memory error"), -1);
 		path = cmdpath(execav[0], ev);
-		if (execve(path, execav, ev) < 0)
-			return (perror("execve"), -1);
+		if (!path)
+			(free(execav), exit(-1));
+		if (path != 0 && execve(path, execav, ev) < 0)
+			(perror("execve"), free(execav), free(path), exit(-1));
 	}
-	return (pid);
+	if (fds[1] != -1)
+		close (fds[1]);
+	return (close(fds[0]), close(fds[4]), pid);
 }
 
 void	exec_multipipe(int ac, char **av, char **ev, int fdio[2])
@@ -41,27 +45,40 @@ void	exec_multipipe(int ac, char **av, char **ev, int fdio[2])
 	int	*fds;
 	int	fdpipe[2];
 	int	i;
-	int pid;
-	int	status;
+	int	pid;
 
 	i = 2;
 	if (pipe(fdpipe) == -1)
 		return (perror("pipe"));
-	fds = (int []) {fdio[0], -1, fdpipe[0], fdpipe[1]};
+	fds = (int []){fdio[0], -1, fdpipe[0], fdpipe[1]};
 	while (i < ac - 1)
 	{
-		pid = exec_child(av[i], fds, ev);
+		pid = exec_child(av[i], fds, fdio, ev);
 		if (i == ac - 3)
-			fds = (int []) { fdpipe[0], fdpipe[1], -1, fdio[1]};
+			fds = (int []){fdpipe[0], fdpipe[1], -1, fdio[1]};
 		else
 		{
-			if (pipe(fdpipe) == - 1)
+			if (pipe(fdpipe) == -1)
 				return (perror("pipes"));
-			fds = (int []) {fds[2], fds[3], fdpipe[0], fdpipe[1]};
+			fds = (int []){fds[2], fds[3], fdpipe[0], fdpipe[1]};
 		}
 		i++;
 	}
-	wait(&status);
+	close_fd(fds, fdio);
+	wait_process(pid);
+}
+
+int	wait_process(int pid)
+{
+	int	status;
+	int	i;
+
+	while (errno != ECHILD)
+		if (wait(&status) == pid && WIFEXITED(status))
+			i = WEXITSTATUS(status);
+	if (pid == -1)
+		return (127);
+	return (i);
 }
 
 int	main(int ac, char **av, char **ev)

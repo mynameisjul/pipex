@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:01 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/15 11:19:26 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:49:09 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "libft/libft.h"
 
 //ALLOC FUNCTIONS
@@ -39,8 +40,9 @@ void	init_tab(int *tab[], int len, int val);
 
 //PIPEX FUNCTIONS
 void	process_fdio(int *in, int *out, int ac, char **av);
-int		exec_child(char *full_cmd, int fds[4], char **ev);
+int		exec_child(char *full_cmd, int fds[4], int fdio[2], char **ev);
 void	exec_multipipe(int ac, char **av, char **ev, int fdio[2]);
-
+int		wait_process(int pid);
+void	close_fd(int fds[4], int fdio[2]);
 
 #endif

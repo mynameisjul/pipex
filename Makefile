@@ -6,7 +6,7 @@
 #    By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 12:13:47 by julieblaye        #+#    #+#              #
-#    Updated: 2024/01/15 11:27:04 by jblaye           ###   ########.fr        #
+#    Updated: 2024/01/17 12:39:27 by jblaye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ RM = rm -f
 all:		libft $(NAME)
 
 libft:	
-			make -C ./libft
+			@make -C ./libft --no-print-directory --silent
 
 $(NAME):	$(OBJ)
 			$(CC) $(CFLAGS) -o $(NAME) $(HEADERS) $(SRC) ./libft/libft.a

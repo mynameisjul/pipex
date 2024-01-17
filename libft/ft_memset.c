@@ -6,11 +6,11 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:54:12 by jblaye            #+#    #+#             */
-/*   Updated: 2023/11/06 18:23:06 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/17 13:55:50 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <aio.h>
+#include "libft.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -19,6 +19,8 @@ void	*ft_memset(void *s, int c, size_t n)
 	int		i;
 
 	us = (char *) s;
+	if (!us)
+		return (NULL);
 	uc = (char) c;
 	i = 0;
 	while (n > 0)

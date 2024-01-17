@@ -1,11 +1,13 @@
+Makefile
+a
 a.out
+aa
+aaa
+aaaa
 libft
 ls
 main.c
-main.o
-Makefile
 outfile.txt
-pipex
 pipex.h
 progresssheet.txt
 sdf

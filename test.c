@@ -1,7 +1,13 @@
 #include <stdio.h>
+#include "pipex.h"
 
-int main(int argc, char const *argv[])
+int main(int ac, char **av)
 {
-	printf("test\n");
+	char	*str;
+	int i = 0;
+
+	i = here_doc_file(av[1]);
+	while (oget_next_line(i, &str) != 0)
+		ft_printf("%s", str);
 	return (0);
 }

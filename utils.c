@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 12:57:13 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 13:20:39 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,43 +59,22 @@ int	here_doc_file(char *limiter)
 	return (close(fd_heredoc[1]), unlink(file_name), free(file_name), fd_heredoc[0]);
 }
 
-/* Paths tab recupere dans les parametres d'env celui commencant par PATH 
-et separe dans un tableau de str tous les paths possibles avec le separateur : 
-Renvoie le tableau de str*/
-
-char	**pathstab(char **ev)
-{
-	int		i;
-	char	**paths;
-
-	i = 0;
-	if (!ev || !ev[0])
-		return (NULL);
-	while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
-		i++;
-	paths = ft_split(ev[i] + 5, ':');
-	if (!paths)
-		return (NULL);
-	return (paths);
-}
-
 /* cmdpath parcours le tableau de chemins potentiels pour la commande cmd
 et renvoie la str qui correspond au bon chemin, null sinon */
 
-char	*cmdpath(char *cmd, char **ev)
+char	*cmdpath(char *cmd, char **paths)
 {
 	int		i;
-	char	**paths;
 	char	*cmd_name;
 	char	*cmd_path;
 
 	i = 0;
-	paths = pathstab(ev);	
-	if (!paths)
-		return (NULL);
 	cmd_name = ft_strjoin("/", cmd);
 	if (!cmd_name)
-		return (ft_dprintf(2, "Command '' not found\n"),ft_freesplit(paths), NULL);
+	{
+		ft_dprintf(2, "Command '' not found\n");
+		return (ft_freesplit(paths), NULL);
+	}
 	while (paths[i] != 0)
 	{	
 		cmd_path = ft_strjoin(paths[i], cmd_name);
@@ -108,6 +87,29 @@ char	*cmdpath(char *cmd, char **ev)
 	}
 	ft_dprintf(2, "Command '%s' not found\n", cmd);
 	return (free(cmd_name), ft_freesplit(paths), NULL);
+}
+
+char	*find_path(char *cmd, char **ev)
+{
+	int		i;
+	char	**paths;
+	char	*path;
+
+	if (cmd && ft_strchr(cmd, 47) != 0)
+		path = ft_strdup(cmd);
+	else
+	{
+		i = 0;
+		if (!ev || !ev[0])
+			return (NULL);
+		while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
+			i++;
+		paths = ft_split(ev[i] + 5, ':');
+		if (!paths)
+			return (NULL);
+		path = cmdpath(cmd, paths);
+	}
+	return (path);
 }
 
 /* On ouvre le infile et outfile s ils existent */

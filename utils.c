@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 13:42:53 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:22:26 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,89 @@ int	here_doc_file(char *limiter)
 /* cmdpath parcours le tableau de chemins potentiels pour la commande cmd
 et renvoie la str qui correspond au bon chemin, null sinon */
 
-char	*cmdpath(char *cmd, char **paths)
+// char	*cmdpath(char *cmd, char **paths)
+// {
+// 	int		i;
+// 	char	*cmd_name;
+// 	char	*cmd_path;
+
+// 	i = 0;
+// 	cmd_name = ft_strjoin("/", cmd);
+// 	if (!cmd_name)
+// 	{
+// 		ft_dprintf(2, "Command '' not found\n");
+// 		return (ft_freesplit(paths), NULL);
+// 	}
+// 	while (paths[i] != 0)
+// 	{	
+// 		cmd_path = ft_strjoin(paths[i], cmd_name);
+// 		if (!cmd_path)
+// 			return (free(cmd_name), ft_freesplit(paths), NULL);
+// 		if (access(cmd_path, F_OK | X_OK) == 0)
+// 			return (ft_freesplit(paths), free(cmd_name), cmd_path);
+// 		free(cmd_path);
+// 		i++;
+// 	}
+// 	ft_dprintf(2, "Command '%s' not found\n", cmd);
+// 	return (free(cmd_name), ft_freesplit(paths), NULL);
+// }
+
+// char	*find_path(char *cmd, char **ev)
+// {
+// 	int		i;
+// 	char	**paths;
+// 	char	*path;
+
+// 	if (cmd && ft_strchr(cmd, 47) != 0)
+// 		path = ft_strdup(cmd);
+// 	else
+// 	{
+// 		i = 0;
+// 		if (!ev || !ev[0])
+// 			return (NULL);
+// 		while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
+// 			i++;
+// 		paths = ft_split(ev[i] + 5, ':');
+// 		if (!paths)
+// 			return (NULL);
+// 		path = cmdpath(cmd, paths);
+// 	}
+// 	return (path);
+// }
+
+char	**pathstab(char **ev)
 {
 	int		i;
+	char	**paths;
+
+	i = 0;
+	if (!ev || !ev[0])
+		return (NULL);
+	while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
+		i++;
+	paths = ft_split(ev[i] + 5, ':');
+	if (!paths)
+		return (NULL);
+	return (paths);
+}
+
+/* cmdpath parcours le tableau de chemins potentiels pour la commande cmd
+et renvoie la str qui correspond au bon chemin, null sinon */
+
+char	*cmdpath(char *cmd, char **ev)
+{
+	int		i;
+	char	**paths;
 	char	*cmd_name;
 	char	*cmd_path;
 
 	i = 0;
+	paths = pathstab(ev);	
+	if (!paths)
+		return (NULL);
 	cmd_name = ft_strjoin("/", cmd);
 	if (!cmd_name)
-	{
-		ft_dprintf(2, "Command '' not found\n");
-		return (ft_freesplit(paths), NULL);
-	}
+		return (ft_dprintf(2, "Command '' not found\n"),ft_freesplit(paths), NULL);
 	while (paths[i] != 0)
 	{	
 		cmd_path = ft_strjoin(paths[i], cmd_name);
@@ -87,30 +157,6 @@ char	*cmdpath(char *cmd, char **paths)
 	}
 	ft_dprintf(2, "Command '%s' not found\n", cmd);
 	return (free(cmd_name), ft_freesplit(paths), NULL);
-}
-
-char	*find_path(char *cmd, char **ev)
-{
-	int		i;
-	char	**paths;
-	char	*path;
-
-	if (cmd && ft_strchr(cmd, 47) != 0)
-		(ft_dprintf(2, "on rentre ici\n"), path = ft_strdup(cmd));
-	else
-	{
-		i = 0;
-		if (!ev || !ev[0])
-			return (NULL);
-		while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
-			i++;
-		paths = ft_split(ev[i] + 5, ':');
-		ft_dprintf(2, "ev %s\n", ev[2]);
-		if (!paths)
-			return (NULL);
-		path = cmdpath(cmd, paths);
-	}
-	return (path);
 }
 
 void	close_fd(int fds[4], int fdio[2])

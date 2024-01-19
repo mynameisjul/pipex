@@ -6,7 +6,7 @@
 #    By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 12:13:47 by julieblaye        #+#    #+#              #
-#    Updated: 2024/01/15 11:27:04 by jblaye           ###   ########.fr        #
+#    Updated: 2024/01/19 14:52:46 by jblaye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,11 @@ $(NAME):	$(OBJ)
 			$(CC) $(CFLAGS) -o $(NAME) $(HEADERS) $(SRC) ./libft/libft.a
 
 clean:
-			rm -f $(OBJS)
+			rm -f $(OBJ)
 			make -C ./libft clean
 
 fclean:		clean
 			rm -f $(NAME)
-			make -C ./libft fclean
 
 re:			fclean all
 

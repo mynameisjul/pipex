@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:18:14 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/16 17:04:40 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:50:14 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_child(char *full_cmd, int fds[4], int fdio[2], char **ev)
 		execav = ft_split(full_cmd, ' ');
 		if (!execav)
 			return (ft_dprintf(2, "Memory error"), -1);
-		path = cmdpath(execav[0], ev);
+		path = path_name(execav[0], ev);
 		if (!path)
 			(ft_freesplit(execav), exit(-1));
 		if (path != 0 && execve(path, execav, ev) < 0)

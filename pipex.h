@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:01 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/16 10:49:09 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:50:26 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	ft_freesplit(char **tab);
 //UTILS FUNCTIONS
 char	**pathstab(char **ev);
 char	*cmdpath(char *cmd, char **paths);
-void	init_tab(int *tab[], int len, int val);
+char	*path_name(char *cmd_name, char **ev);
+
+//HERE DOC UTILS
+char	*file_name_generator(char *file_name);
+int		here_doc_file(char *limiter);
 
 //PIPEX FUNCTIONS
 void	process_fdio(int *in, int *out, int ac, char **av);

@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:18:14 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 14:50:14 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:11:07 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,16 @@ int	wait_process(int pid)
 int	main(int ac, char **av, char **ev)
 {
 	int	fdio[2];
+	int	yesheredoc;
 
+	if (ac < 5)
+		return (ft_dprintf(2, "Invalid arguments\n"), -1);
+	yesheredoc = isheredoc(av);
+	if (yesheredoc == 1 && ac < 6)
+		return (ft_dprintf(2, "Invalid arguments\n"), -1);
 	process_fdio(&fdio[0], &fdio[1], ac, av);
-	if (ac < 5 || fdio[0] == -1 || fdio[1] == -1)
-		return (ft_dprintf(2, "Invalid arguments"));
-	exec_multipipe(ac, av, ev, fdio);
+	if (fdio[0] == -1 || fdio[1] == -1)
+		return (-1);
+	exec_multipipe(ac - yesheredoc, &av[0] + yesheredoc, ev, fdio);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:48:49 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/17 14:47:53 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:22:22 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_freesplit(char **tab);
+void	ft_fsplit(char **tab);
 
 //TYPECHAR FUNCTIONS
 int		ft_isalnum(int c);

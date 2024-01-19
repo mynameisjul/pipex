@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 14:50:46 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:23:12 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,24 @@ char	*cmdpath(char *cmd, char **ev)
 	char	*cmd_path;
 
 	i = 0;
-	paths = pathstab(ev);	
+	paths = pathstab(ev);
 	if (!paths)
-		return (NULL);
+		return (ft_dprintf(2, "Command '%s' not found\n", cmd), NULL);
 	cmd_name = ft_strjoin("/", cmd);
 	if (!cmd_name)
-		return (ft_dprintf(2, "Command '' not found\n"),ft_freesplit(paths), NULL);
+		return (ft_dprintf(2, "Command '' not found\n"), ft_fsplit(paths), NULL);
 	while (paths[i] != 0)
 	{	
 		cmd_path = ft_strjoin(paths[i], cmd_name);
 		if (!cmd_path)
-			return (free(cmd_name), ft_freesplit(paths), NULL);
+			return (free(cmd_name), ft_fsplit(paths), NULL);
 		if (access(cmd_path, F_OK | X_OK) == 0)
-			return (ft_freesplit(paths), free(cmd_name), cmd_path);
+			return (ft_fsplit(paths), free(cmd_name), cmd_path);
 		free(cmd_path);
 		i++;
 	}
 	ft_dprintf(2, "Command '%s' not found\n", cmd);
-	return (free(cmd_name), ft_freesplit(paths), NULL);
+	return (free(cmd_name), ft_fsplit(paths), NULL);
 }
 
 char	*path_name(char *cmd_name, char **ev)
@@ -79,17 +79,25 @@ char	*path_name(char *cmd_name, char **ev)
 
 void	process_fdio(int *in, int *out, int ac, char **av)
 {
-	*in = open(av[1], O_RDONLY, 0644);
-	if (*in == -1)
-		return (perror("infile"));
-	if (ft_strncmp("here_doc", av[1], 8) == 0)
+	if (ft_strncmp("here_doc", av[1], 9) == 0)
 	{
-		*out = -1;
+		*in = here_doc_file(av[2]);
+		if (*in == -1)
+			return (perror("infile"));
+		*out = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (*out == -1)
+			return (close(*in), perror("outfile"));
 		return ;
 	}
-	*out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (*out == -1)
-		return (close(*in), perror("outfile"));
+	else
+	{
+		*in = open(av[1], O_RDONLY, 0644);
+		if (*in == -1)
+			return (perror("infile"));
+		*out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (*out == -1)
+			return (close(*in), perror("outfile"));
+	}
 }
 
 void	close_fd(int fds[4], int fdio[2])
@@ -103,7 +111,7 @@ void	close_fd(int fds[4], int fdio[2])
 		close(fdio[1]);
 	while (fds && i < 4)
 	{
-		if (fds[i] != -1) 
+		if (fds[i] != -1)
 			close (fds[i]);
 		i++;
 	}

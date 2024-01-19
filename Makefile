@@ -6,13 +6,13 @@
 #    By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 12:13:47 by julieblaye        #+#    #+#              #
-#    Updated: 2024/01/19 14:52:46 by jblaye           ###   ########.fr        #
+#    Updated: 2024/01/19 14:59:13 by jblaye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRC = main.c utils.c
+SRC = main.c utils.c heredoc.c
 
 HEADERS = -I pipex.h
 

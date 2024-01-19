@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 11:02:05 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/19 13:42:53 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*find_path(char *cmd, char **ev)
 	char	*path;
 
 	if (cmd && ft_strchr(cmd, 47) != 0)
-		path = ft_strdup(cmd);
+		(ft_dprintf(2, "on rentre ici\n"), path = ft_strdup(cmd));
 	else
 	{
 		i = 0;
@@ -105,6 +105,7 @@ char	*find_path(char *cmd, char **ev)
 		while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
 			i++;
 		paths = ft_split(ev[i] + 5, ':');
+		ft_dprintf(2, "ev %s\n", ev[2]);
 		if (!paths)
 			return (NULL);
 		path = cmdpath(cmd, paths);

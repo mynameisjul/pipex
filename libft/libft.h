@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:48:49 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/15 11:20:42 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:47:53 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@
 # include <aio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+typedef struct s_line
+{
+	char	*result;
+	char	*rest;
+}					t_line;
 
 //MALLOC FUNCTIONS
 void	*ft_calloc(size_t nmemb, size_t size);
@@ -84,6 +94,18 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+//GET NEXT LINE UTILS
+ssize_t	isinstr(char *s, char c);
+char	*ft_endstr(char *rest, size_t index, size_t size);
+char	*ft_endstrnomalloc(char *rest, size_t index, size_t size);
+
+//GET NEXT LINE CORE FUNCTIONS
+char	*ft_strnjoin(char *beg, char *end, size_t size);
+t_line	ft_read(int fd, t_line line);
+t_line	get_end_of_line(int fd, char *tmp);
+char	*get_next_line(int fd);
+char	*oget_next_line(int fd, char **line);
 
 //CHAINED LISTS FUCTIONS
 t_list	*ft_lstnew(void *content);

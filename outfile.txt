@@ -1,0 +1,12 @@
+heredoc.c
+heredoc.o
+libft
+main.c
+main.o
+Makefile
+outfile.txt
+pipex
+pipex.h
+progresssheet.txt
+utils.c
+utils.o

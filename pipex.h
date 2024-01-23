@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:01 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 15:29:19 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/23 10:34:18 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*cmdpath(char *cmd, char **paths);
 char	*path_name(char *cmd_name, char **ev);
 
 //HERE DOC UTILS
+char	*limiter_generator(char *limiter);
 int		isheredoc(char **av);
 char	*file_name_generator(char *file_name);
 int		here_doc_file(char *limiter);

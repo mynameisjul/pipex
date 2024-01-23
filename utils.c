@@ -6,7 +6,7 @@
 /*   By: jblaye <jblaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:55 by jblaye            #+#    #+#             */
-/*   Updated: 2024/01/19 15:23:12 by jblaye           ###   ########.fr       */
+/*   Updated: 2024/01/23 10:43:19 by jblaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**pathstab(char **ev)
 		return (NULL);
 	while (ev[i] && ft_strncmp("PATH=", ev[i], 5) != 0)
 		i++;
+	if (ft_strncmp("PATH=", ev[i], 5) != 0)
+		return (NULL);
 	paths = ft_split(ev[i] + 5, ':');
 	if (!paths)
 		return (NULL);
@@ -79,11 +81,17 @@ char	*path_name(char *cmd_name, char **ev)
 
 void	process_fdio(int *in, int *out, int ac, char **av)
 {
+	char	*f_l;
+
 	if (ft_strncmp("here_doc", av[1], 9) == 0)
 	{
-		*in = here_doc_file(av[2]);
-		if (*in == -1)
+		f_l = limiter_generator(av[2]);
+		if (!f_l)
 			return (perror("infile"));
+		*in = here_doc_file(f_l);
+		free(f_l);
+		if (*in == -1)
+			return (free(f_l), perror("infile"));
 		*out = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (*out == -1)
 			return (close(*in), perror("outfile"));
